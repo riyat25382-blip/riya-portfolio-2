@@ -1,13 +1,5 @@
 const nodemailer = require('nodemailer');
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASSWORD
-  }
-});
-
 export default async function handler(req, res) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -25,11 +17,29 @@ export default async function handler(req, res) {
   }
 
   try {
+    // Check if environment variables are set
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD) {
+      console.error('Missing EMAIL_USER or EMAIL_PASSWORD environment variables');
+      return res.status(500).json({ 
+        error: 'Server configuration error: Missing email credentials',
+        hasUser: !!process.env.EMAIL_USER,
+        hasPassword: !!process.env.EMAIL_PASSWORD
+      });
+    }
+
     const { name, email, topic, message } = req.body;
 
     if (!name || !email || !topic || !message) {
       return res.status(400).json({ error: 'All fields are required' });
     }
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD
+      }
+    });
 
     const mailOptions = {
       from: process.env.EMAIL_USER,
@@ -45,10 +55,16 @@ export default async function handler(req, res) {
       `
     };
 
-    await transporter.sendMail(mailOptions);
+    console.log('Sending email from:', process.env.EMAIL_USER);
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Email sent:', info.response);
+    
     res.status(200).json({ success: 'Message sent successfully!' });
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: 'Failed to send message', details: error.message });
+    console.error('Email error:', error);
+    res.status(500).json({ 
+      error: 'Failed to send message', 
+      details: error.message 
+    });
   }
 }
