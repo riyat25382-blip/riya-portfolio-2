@@ -12,12 +12,16 @@ document.addEventListener('DOMContentLoaded', function() {
       const topic = document.getElementById('topic').value;
       const message = document.getElementById('message').value;
 
+      console.log('Form values:', { name, email, topic, message });
+
       const data = {
         name: name,
         email: email,
         topic: topic,
         message: message
       };
+
+      console.log('Data to send:', JSON.stringify(data));
 
       try {
         // Backend URL - using Vercel serverless function
