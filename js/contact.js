@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
       };
 
       try {
-        // Backend URL
-        const backendUrl = 'https://portfoliobackend-tan.vercel.app/api/contact';
+        // Backend URL - using Vercel serverless function
+        const backendUrl = 'https://riya-portfolio-2-beryl.vercel.app/api/contact';
         
         const response = await fetch(backendUrl, {
           method: 'POST',
