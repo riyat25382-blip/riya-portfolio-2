@@ -29,8 +29,14 @@ export default async function handler(req, res) {
 
     const { name, email, topic, message } = req.body;
 
+    console.log('Received data:', { name, email, topic, message });
+
     if (!name || !email || !topic || !message) {
-      return res.status(400).json({ error: 'All fields are required' });
+      console.log('Missing fields - name:', !!name, 'email:', !!email, 'topic:', !!topic, 'message:', !!message);
+      return res.status(400).json({ 
+        error: 'All fields are required',
+        received: { name: !!name, email: !!email, topic: !!topic, message: !!message }
+      });
     }
 
     const transporter = nodemailer.createTransport({
