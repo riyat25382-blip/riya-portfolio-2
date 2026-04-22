@@ -1,0 +1,8 @@
+{
+  "name": "riya-portfolio",
+  "version": "1.0.0",
+  "description": "Riya Todi Portfolio",
+  "dependencies": {
+    "nodemailer": "^6.9.7"
+  }
+}
