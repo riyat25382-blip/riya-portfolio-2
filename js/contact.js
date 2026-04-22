@@ -20,9 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
       };
 
       try {
-        // Replace with your backend URL when deployed
-        const backendUrl = 'http://localhost:5000/api/contact'; // For local testing
-        // OR use your deployed backend URL like: 'https://your-backend.vercel.app/api/contact'
+        // Backend URL
+        const backendUrl = 'https://portfoliobackend-tan.vercel.app/api/contact';
         
         const response = await fetch(backendUrl, {
           method: 'POST',

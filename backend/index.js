@@ -6,7 +6,11 @@ require('dotenv').config();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  methods: ['POST', 'GET'],
+  credentials: false
+}));
 app.use(express.json());
 
 // Create transporter for Gmail
