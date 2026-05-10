@@ -92,8 +92,16 @@
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-8);
+}
+
+.projects-grid > a {
+  display: contents;
+}
+
+.projects-grid > a > .project-card {
+  display: flex;
 }
 
 /* Project Card */
@@ -216,7 +224,7 @@
   }
 
   .projects-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--space-6);
   }
 
@@ -227,6 +235,12 @@
   .filter-btn {
     padding: var(--space-2) var(--space-4);
     font-size: var(--fs-xs);
+  }
+}
+
+@media (max-width: 480px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
   }
 }
 
